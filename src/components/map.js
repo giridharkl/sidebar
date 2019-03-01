@@ -45,13 +45,7 @@ class MapLeaflet extends Component {
         const position = [this.state.lat, this.state.lng];
         //const wrappedZoomIndicator = withLeaflet(ReactLeafletZoomIndicator);
         return (
-            <Map center={position} zoom={this.state.zoom} style={{
-                marginLeft: this.props.expanded ? 240 : 64,
-                padding: '15px 25px 0 20px',
-                position: 'absolute',
-                height: '97%',
-                width: this.props.expanded?'77%':'91%'
-            }}>
+            <Map center={position} zoom={this.state.zoom} style={{height:'100%',width:'100%'}}>
                 <TileLayer
                     attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

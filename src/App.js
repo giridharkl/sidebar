@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/react-sidenav';
+import { BrowserRouter, Route, Switch, NavLink } from 'react-router-dom'; 
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 import MapLeaflet from './components/map';
+import Dashboard from './components/dashboard';
 
 class App extends Component {
 
@@ -20,8 +22,13 @@ class App extends Component {
   render() {
     const { expanded } = this.state;
     return (
+      <BrowserRouter> 
       <div>
-        <SideNav onToggle={this.onToggle}>
+        <SideNav onToggle={this.onToggle} onSelect={(selected) => {
+          const to = '/' + selected;
+          
+          
+        }}>
           <SideNav.Toggle />
           <SideNav.Nav defaultSelected="home">
             <NavItem eventKey="home">
@@ -52,8 +59,21 @@ class App extends Component {
             </NavItem>
           </SideNav.Nav>
         </SideNav>
-        <MapLeaflet expanded={this.state.expanded}></MapLeaflet>
+        <div style={{
+                marginLeft: this.state.expanded ? 240 : 64,
+                padding: '0px',
+                position: 'absolute',
+                height: '100%',
+                width: this.state.expanded?'81%':'95%'
+          }}>
+          <Switch>
+            <Route path="/" component={Dashboard} expanded={this.state.expanded} exact/>
+            <Route path="/home" component={MapLeaflet} expanded={this.state.expanded}/>
+          </Switch>    
+        </div>
+        
       </div>
+      </BrowserRouter>
     );
   }
 }
